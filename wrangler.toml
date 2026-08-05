@@ -1,0 +1,16 @@
+name = "muhaddir-api"
+main = "src/index.js"
+compatibility_date = "2026-07-15"
+
+[vars]
+AI_PROVIDER = "gemini"
+AI_MODEL = "gemini-2.0-flash"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "muhaddir"
+database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "muhaddir-files"

@@ -1,0 +1,13 @@
+الملك.zip
+└── الملك/
+    ├── index.html
+    ├── new-lesson.html
+    ├── preview.html
+    ├── archive.html
+    ├── library.html
+    ├── settings.html
+    ├── worker.js
+    ├── wrangler.toml
+    └── assets/
+        ├── css/
+        └── js/

@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مُحضِّر الذكي | منصة تحضير الدروس بالذكاء الاصطناعي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pri: #0f766e;
+  --pri2: #14b8a6;
+  --pri-d: #115e59;
+  --pri-l: #ccfbf1;
+  --ink: #0f172a;
+  --mut: #64748b;
+  --line: #e2e8f0;
+  --bg: #eef2f7;
+  --card: #fff;
+  --ok: #16a34a;
+  --warn: #d97706;
+  --bad: #dc2626;
+  --rad: 14px;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Tajawal', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Cairo', sans-serif;
+}
+.wrap {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+.main {
+  padding-block: 20px 90px;
+}
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+  width: 100%;
+  outline: none;
+  transition: .15s;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--pri2);
+  box-shadow: 0 0 0 3px var(--pri-l);
+}
+label.f {
+  display: block;
+  margin-bottom: 12px;
+}
+label.f>span {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #334155;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--pri);
+  color: #fff;
+  border: none;
+  border-radius: 11px;
+  padding: 11px 20px;
+  font-weight: 800;
+  font-family: 'Cairo';
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  transition: .15s;
+}
+.btn:hover {
+  background: var(--pri-d);
+}
+.btn.ghost {
+  background: #fff;
+  color: var(--pri-d);
+  border: 1.5px solid var(--pri);
+}
+.btn.danger {
+  background: #fef2f2;
+  color: var(--bad);
+  border: 1.5px solid #fecaca;
+}
+.btn.sm {
+  padding: 7px 13px;
+  font-size: 13px;
+  border-radius: 9px;
+}
+.icon {
+  border: none;
+  background: #f1f5f9;
+  color: var(--mut);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.icon:hover {
+  background: #fee2e2;
+  color: var(--bad);
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--rad);
+  padding: 18px;
+  margin-bottom: 16px;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+.topbar .wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Cairo';
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--pri-d);
+}
+.logo .ic {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--pri), var(--pri2));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 20px;
+}
+.navlinks {
+  display: flex;
+  gap: 4px;
+  margin-inline-start: auto;
+}
+.navlinks a {
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: var(--mut);
+  font-weight: 700;
+  text-decoration: none;
+}
+.navlinks a.active {
+  background: var(--pri-l);
+  color: var(--pri-d);
+}
+.tabbar {
+  display: none;
+}
+@media(max-width:760px) {
+  .navlinks {
+    display: none;
+  }
+  .tabbar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    inset-inline: 0;
+    background: #fff;
+    border-top: 1px solid var(--line);
+    z-index: 50;
+  }
+  .tabbar a {
+    flex: 1;
+    text-align: center;
+    padding: 8px 2px 10px;
+    font-size: 11px;
+    color: var(--mut);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .tabbar a .i {
+    font-size: 20px;
+    display: block;
+  }
+  .tabbar a.active {
+    color: var(--pri-d);
+  }
+  body {
+    padding-bottom: 64px;
+  }
+  .main {
+    padding-block: 14px 80px;
+  }
+}
+.hero {
+  background: linear-gradient(135deg, #0f766e, #0d9488);
+  color: #fff;
+  border: none;
+}
+.hero p {
+  opacity: .92;
+  margin: 8px 0 16px;
+}
+.hero .btn {
+  background: #fff;
+  color: var(--pri-d);
+}
+.hero .btn.ghost {
+  background: transparent;
+  color: #fff;
+  border-color: #ffffff88;
+}
+.grid.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media(max-width:640px) {
+  .grid.stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.stat {
+  text-align: center;
+}
+.stat-v {
+  font: 800 26px 'Cairo';
+  color: var(--pri-d);
+}
+.stat-l {
+  font-weight: 700;
+  font-size: 13px;
+}
+.stat-s {
+  font-size: 11px;
+  color: var(--mut);
+}
+.prow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.prow:last-child {
+  border-bottom: none;
+}
+.pr-main {
+  flex: 1;
+  min-width: 200px;
+}
+.pr-meta {
+  display: block;
+  font-size: 12px;
+  color: var(--mut);
+  margin-top: 2px;
+}
+.badge {
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.badge.q-hi {
+  background: #dcfce7;
+  color: #15803d;
+}
+.badge.q-md {
+  background: #fef3c7;
+  color: #b45309;
+}
+.badge.q-lo {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.badge.st {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.pipe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 4px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 0;
+}
+.pipe-s {
+  background: var(--pri-l);
+  color: var(--pri-d);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+.pipe-a {
+  color: var(--mut);
+}
+.wsteps {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.ws {
+  flex: 1;
+  text-align: center;
+  padding: 9px 4px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--mut);
+}
+.ws.on {
+  background: var(--pri);
+  color: #fff;
+  border-color: var(--pri);
+}
+.ws.done {
+  background: var(--pri-l);
+  color: var(--pri-d);
+  border-color: var(--pri2);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  padding: 8px 14px;
+  border-radius: 99px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  transition: .1s;
+}
+.chip.on {
+  background: var(--pri);
+  color: #fff;
+  border-color: var(--pri);
+}
+.edit-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+  align-items: start;
+}
+@media(max-width:900px) {
+  .edit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.edit-side {
+  position: sticky;
+  top: 76px;
+}
+@media(max-width:900px) {
+  .edit-side {
+    position: static;
+  }
+}
+.edit-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.acts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ttl {
+  font: 800 19px 'Cairo';
+  border: none;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+}
+.ttl:focus {
+  box-shadow: none;
+  border-bottom: 2px dashed var(--pri2);
+}
+.obj-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.obj-row .num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--pri-l);
+  color: var(--pri-d);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.obj-row select {
+  max-width: 110px;
+}
+@media(max-width:640px) {
+  .obj-row {
+    flex-wrap: wrap;
+  }
+  .obj-row input {
+    flex: 1 1 100%;
+  }
+}
+.stage {
+  margin-bottom: 12px;
+  border-color: #cbd5e1;
+}
+.stage-h {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.sname {
+  font-weight: 800;
+  font-family: 'Cairo';
+  flex: 1;
+}
+.smin {
+  width: 64px;
+  display: inline-block;
+}
+.stage-g {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media(max-width:640px) {
+  .stage-g {
+    grid-template-columns: 1fr;
+  }
+}
+.stage-g label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mut);
+}
+.stage-g label>* {
+  margin-top: 4px;
+}
+.gauge {
+  width: 150px;
+  display: block;
+  margin: auto;
+}
+.g-bg {
+  fill: none;
+  stroke: #e2e8f0;
+  stroke-width: 11;
+}
+.g-fg {
+  fill: none;
+  stroke-width: 11;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset .5s;
+}
+.g-num {
+  font: 800 26px 'Cairo';
+  text-anchor: middle;
+}
+.g-gr {
+  font: 700 11px 'Tajawal';
+  text-anchor: middle;
+  fill: #64748b;
+}
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-top: 7px;
+}
+.bar-row span {
+  width: 118px;
+  color: var(--mut);
+  font-weight: 700;
+}
+.bar {
+  flex: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--pri2), var(--pri));
+  border-radius: 99px;
+}
+.qnotes {
+  list-style: none;
+  margin-top: 10px;
+}
+.qnotes li {
+  font-size: 12px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--mut);
+}
+.ok {
+  color: var(--ok);
+  font-weight: 700;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.paper-wrap {
+  overflow-x: auto;
+  padding: 14px 2px;
+}
+.paper {
+  background: #fff;
+  box-shadow: 0 8px 30px #0f172a22;
+  border-radius: 4px;
+  width: max-content;
+  margin: auto;
+  padding: 6mm 0;
+}
+.json {
+  direction: ltr;
+  text-align: left;
+  font: 12px/1.6 monospace;
+  background: #0f172a;
+  color: #a5f3fc;
+  overflow: auto;
+  max-height: 420px;
+  padding: 16px;
+  border-radius: 12px;
+}
+.json.hidden {
+  display: none;
+}
+#toast {
+  position: fixed;
+  bottom: 80px;
+  inset-inline: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 99;
+}
+.tst {
+  background: #0f172a;
+  color: #fff;
+  padding: 11px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px #0004;
+  animation: up .25s;
+}
+@keyframes up {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+#overlay {
+  display: none;
+}
+#overlay.on {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  inset: 0;
+  background: #0f172a99;
+  z-index: 90;
+  padding: 16px;
+}
+.mbox {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  max-width: 430px;
+  width: 100%;
+  box-shadow: 0 20px 60px #0005;
+}
+.mbox .acts {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.steps {
+  list-style: none;
+  margin-top: 14px;
+}
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  color: var(--mut);
+  font-weight: 700;
+}
+.steps .dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2.5px solid var(--line);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.steps li.doing {
+  color: var(--pri-d);
+}
+.steps li.doing .dot {
+  border-color: var(--pri);
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.steps li.done {
+  color: var(--ok);
+}
+.steps li.done .dot {
+  border-color: var(--ok);
+  background: var(--ok);
+  color: #fff;
+}
+.steps li.done .dot::after {
+  content: '✓';
+}
+.empty {
+  color: var(--mut);
+  font-size: 14px;
+  padding: 8px 0;
+}
+.note {
+  font-size: 13px;
+  color: var(--mut);
+  margin-top: 8px;
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+@media print {
+  #app,
+  #toast,
+  #overlay,
+  .no-print {
+    display: none !important;
+  }
+  #print-root {
+    display: block !important;
+  }
+  body {
+    background: #fff !important;
+  }
+  .paper {
+    box-shadow: none;
+    padding: 0;
+  }
+}
+#print-root {
+  display: none;
+}
+.sheet {
+  width: 188mm;
+  margin: auto;
+  background: #fff;
+  color: #000;
+  direction: rtl;
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+  font-size: 10pt;
+  line-height: 1.55;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.sheet table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.sheet .master>thead>tr>td,
+.sheet .master>tbody>tr>td,
+.sheet .master>tfoot>tr>td {
+  border: none;
+  padding: 0;
+}
+.sheet th,
+.sheet td {
+  border: 1pt solid #111;
+  padding: 1.7mm 2mm;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.sheet .master>tbody>tr>td>table {
+  margin-bottom: 2.4mm;
+}
+.sheet thead {
+  display: table-header-group;
+}
+.sheet tfoot {
+  display: table-footer-group;
+}
+.sheet tr {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.sheet .h,
+.sheet th {
+  background: #e8eef5;
+  font-weight: 800;
+  text-align: center;
+  font-size: 9.5pt;
+}
+.sheet.bw th,
+.sheet.bw .h {
+  background: #f0f0f0 !important;
+}
+.t0 td {
+  text-align: center;
+  font-size: 9.5pt;
+  font-weight: 700;
+  line-height: 1.7;
+}
+.htitle {
+  font-size: 15pt;
+  font-weight: 800;
+}
+.hsub {
+  font-size: 9pt;
+  color: #333;
+  font-weight: 400;
+}
+.t1 th,
+.t1 td {
+  text-align: center;
+  font-size: 9.5pt;
+}
+.t2 td {
+  font-size: 10pt;
+}
+.objs {
+  margin: 0;
+  padding-inline-start: 18px;
+}
+.objs li {
+  margin-bottom: 1mm;
+}
+.tag {
+  display: inline-block;
+  background: #eef2f7;
+  border: .5pt solid #94a3b8;
+  border-radius: 3px;
+  font-size: 8pt;
+  padding: 0 1.5mm;
+  margin-inline-start: 1mm;
+}
+.sheet.bw .tag {
+  background: #fff;
+}
+.t3 thead th {
+  font-size: 9pt;
+}
+.t3 tbody tr {
+  height: 15mm;
+}
+.t3 td {
+  font-size: 9.5pt;
+}
+.t3 .c {
+  text-align: center;
+  font-weight: 700;
+}
+.t4 th {
+  font-size: 9.5pt;
+}
+.t4 .sig td {
+  height: 16mm;
+}
+.foot {
+  text-align: center;
+  font-size: 8pt;
+  color: #444;
+  padding-top: 1mm;
+}
+.muted {
+  font-weight: 400;
+  font-size: 8.5pt;
+  color: #555;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="wrap">
+      <div class="logo"><span class="ic">🎓</span><span>مُحضِّر <b>الذكي</b></span></div>
+      <nav class="navlinks" id="navlinks">
+        <a href="#/dashboard" data-nav="dashboard">الرئيسية</a>
+        <a href="#/new" data-nav="new">تحضير جديد</a>
+        <a href="#/library" data-nav="library">الأرشيف</a>
+        <a href="#/settings" data-nav="settings">الإعدادات</a>
+      </nav>
+    </div>
+  </header>
+  <main id="view" class="wrap main"></main>
+  <nav class="tabbar" id="tabbar">
+    <a href="#/dashboard" data-nav="dashboard"><span class="i">🏠</span>الرئيسية</a>
+    <a href="#/new" data-nav="new"><span class="i">✨</span>تحضير جديد</a>
+    <a href="#/library" data-nav="library"><span class="i">🗂️</span>الأرشيف</a>
+    <a href="#/settings" data-nav="settings"><span class="i">⚙️</span>الإعدادات</a>
+  </nav>
+</div>
+<div id="print-root"></div>
+<div id="overlay"></div>
+<div id="toast"></div>
+<script>
+  // ============================================================
+  //  المُحضِّر الذكي  –  التطبيق الكامل (JavaScript)
+  // ============================================================
+
+  // ---------- مساعدات ----------
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] || c));
+  const uid = () => 'P' + Date.now().toString(36) + (Store.seq++);
+  const today = () => new Date().toISOString().slice(0, 10);
+  const fmtDate = ts => new Date(ts).toLocaleDateString('ar');
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  function toast(msg, type) {
+    const el = document.getElementById('toast');
+    el.innerHTML = `<div class="tst">${esc(msg)}</div>`;
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.innerHTML = '', 2800);
+  }
+
+  function qClass(s) { if (s >= 80) return 'q-hi'; if (s >= 60) return 'q-md'; return 'q-lo'; }
+
+  function setPath(o, path, val) {
+    const ks = path.split('.');
+    let t = o;
+    for (let i = 0; i < ks.length - 1; i++) t = t[ks[i]];
+    t[ks[ks.length - 1]] = val;
+  }
+
+  function getPath(o, path) {
+    const ks = path.split('.');
+    let t = o;
+    for (const k of ks) { if (t === undefined) return undefined;
+      t = t[k]; }
+    return t;
+  }
+
+  // ---------- المتجر ----------
+  const Store = {
+    plans: [],
+    settings: {
+      teacher: '',
+      school: '',
+      ministry: 'الجمهورية اليمنية',
+      eduOffice: '',
+      duration: 45,
+      provider: 'mock',
+      workerUrl: '',
+      token: '',
+      printColor: true,
+      showSignatures: true
+    },
+    seq: 1
+  };
+
+  // ---------- قاعدة المعرفة ----------
+  const KB = {
+    curricula: [{
+      id: 'ye',
+      name: 'المنهج اليمني',
+      grades: [{
+        id: 'g3',
+        name: 'الصف الثالث الابتدائي',
+        band: 'low',
+        subjects: [{
+          id: 'ar',
+          name: 'اللغة العربية',
+          units: [
+            { id: 'ar-u1', name: 'وحدة أسرتي', lessons: ['قراءة: أسرتي الحبيبة', 'نحو: أسماء الإشارة', 'إملاء: الهمزة المتوسطة'] },
+            { id: 'ar-u2', name: 'وحدة مدرستي', lessons: ['قراءة: في مدرستنا', 'نحو: المفرد والمثنى'] }
+          ]
+        }, {
+          id: 'ma',
+          name: 'الرياضيات',
+          units: [
+            { id: 'ma-u1', name: 'الأعداد والعمليات', lessons: ['الأعداد حتى 999', 'جمع عددين بدون حمل', 'طرح عددين باستلاف'] },
+            { id: 'ma-u2', name: 'الهندسة والقياس', lessons: ['الأشكال الهندسية', 'قياس الأطوال بالسنتيمتر'] }
+          ]
+        }, {
+          id: 'sc',
+          name: 'العلوم',
+          units: [
+            { id: 'sc-u1', name: 'الكائنات الحية', lessons: ['النباتات من حولنا', 'حاجات الإنسان الأساسية'] }
+          ]
+        }]
+      }, {
+        id: 'g6',
+        name: 'الصف السادس الابتدائي',
+        band: 'mid',
+        subjects: [{
+          id: 'ma',
+          name: 'الرياضيات',
+          units: [
+            { id: 'ma-u1', name: 'الأعداد الكسرية', lessons: ['الكسور الاعتيادية', 'جمع الكسور المتشابهة', 'النسبة المئوية'] },
+            { id: 'ma-u2', name: 'الهندسة', lessons: ['مساحة المستطيل والمربع', 'محيط الدائرة'] }
+          ]
+        }, {
+          id: 'sc',
+          name: 'العلوم',
+          units: [
+            { id: 'sc-u1', name: 'المادة وطاقتها', lessons: ['حالات المادة', 'الدارات الكهربائية البسيطة'] },
+            { id: 'sc-u2', name: 'الأرض والفضاء', lessons: ['دوران الأرض والفصول الأربعة'] }
+          ]
+        }, {
+          id: 'ar',
+          name: 'اللغة العربية',
+          units: [
+            { id: 'ar-u1', name: 'وحدة قيم وأخلاق', lessons: ['قراءة: الصدق منجاة', 'نحو: الجملة الاسمية'] }
+          ]
+        }, {
+          id: 'is',
+          name: 'التربية الإسلامية',
+          units: [
+            { id: 'is-u1', name: 'العقيدة', lessons: ['الإيمان بالله', 'سورة الناس: المعنى والحفظ'] }
+          ]
+        }]
+      }, {
+        id: 'g9',
+        name: 'الصف التاسع الأساسي',
+        band: 'high',
+        subjects: [{
+          id: 'ma',
+          name: 'الرياضيات',
+          units: [
+            { id: 'ma-u1', name: 'الجبر', lessons: ['المعادلات من الدرجة الأولى', 'التحليل إلى العوامل'] }
+          ]
+        }, {
+          id: 'sc',
+          name: 'العلوم',
+          units: [
+            { id: 'sc-u1', name: 'الفيزياء', lessons: ['قانون أوم', 'السرعة والتسارع'] }
+          ]
+        }, {
+          id: 'en',
+          name: 'اللغة الإنجليزية',
+          units: [
+            { id: 'en-u1', name: 'Unit 1: Daily Life', lessons: ['Reading: My Day', 'Grammar: Present Simple'] }
+          ]
+        }]
+      }]
+    }, {
+      id: 'sa',
+      name: 'المنهج السعودي',
+      grades: [{
+        id: 'g5',
+        name: 'الصف الخامس الابتدائي',
+        band: 'mid',
+        subjects: [{
+          id: 'ma',
+          name: 'الرياضيات',
+          units: [
+            { id: 'ma-u1', name: 'القيمة المنزلية', lessons: ['القيمة المنزلية ضمن المليارات', 'المقارنة بين الأعداد وترتيبها'] }
+          ]
+        }, {
+          id: 'sc',
+          name: 'العلوم',
+          units: [
+            { id: 'sc-u1', name: 'العلوم الطبيعية', lessons: ['تصنيف المخلوقات الحية', 'الدورات في النظام البيئي'] }
+          ]
+        }]
+      }]
+    }]
+  };
+
+  // ---------- بلوم ----------
+  const BLOOM = {
+    remember: { name: 'التذكر', verbs: ['يذكر', 'يعدّد', 'يعرّف', 'يسمّي'], content: L => `المفاهيم والمصطلحات الأساسية في درس «${L}»` },
+    understand: { name: 'الفهم', verbs: ['يشرح', 'يفسّر', 'يلخّص', 'يقارن'], content: L => `الأفكار الرئيسة في «${L}» بأسلوبه الخاص` },
+    apply: { name: 'التطبيق', verbs: ['يطبّق', 'يستخدم', 'يحلّ', 'ينفّذ'], content: L => `ما تعلّمه في «${L}» على تمارين ومواقف جديدة` },
+    analyze: { name: 'التحليل', verbs: ['يحلّل', 'يميّز', 'يربط', 'يستنتج'], content: L => `العلاقات بين عناصر «${L}» ويستنتج الأنماط` },
+    evaluate: { name: 'التقويم', verbs: ['يقيّم', 'يبرر', 'يحكم', 'يناقش'], content: L => `الحلول المرتبطة بـ«${L}» مبررًا وجهة نظره` },
+    create: { name: 'الإبداع', verbs: ['يصمّم', 'ينشئ', 'يبتكر', 'يقترح'], content: L => `منتجًا أو مسألة من إعداده حول «${L}»` }
+  };
+  const BLOOM_BANDS = { low: ['remember', 'understand', 'apply'], mid: ['understand', 'apply', 'analyze'], high: ['apply',
+      'analyze', 'evaluate', 'create'
+    ] };
+
+  // ---------- المصادر التربوية حسب المادة ----------
+  const SUBJ_BANK = {
+    'الرياضيات': {
+      tools: ['الكتاب المدرسي', 'السبورة', 'بطاقات الأعداد', 'مجسّمات ووسائل محسوسة'],
+      present: [
+        L => `يعرض مثالًا محسوسًا مرتبطًا بـ«${L}» ويناقش خطوات الحل خطوة بخطوة`,
+        L => `يربط مفهوم «${L}» بمواقف من الحياة اليومية ويوضحه بأمثلة متدرجة`
+      ],
+      group: [
+        L => `بطاقات عمل تتضمن تمارين متدرجة في «${L}»`,
+        L => `مسألة تحدٍّ جماعية حول «${L}»`
+      ],
+      homework: L => `حل تمارين الكتاب المدرسي المرتبطة بدرس «${L}» (تمارين متدرجة المستوى)`
+    },
+    'العلوم': {
+      tools: ['الكتاب المدرسي', 'صور ومجسمات', 'أدوات تجربة بسيطة', 'مقطع مرئي قصير'],
+      present: [
+        L => `يعرض ظاهرة/صورة مرتبطة بـ«${L}» ويطرح أسئلة استقصائية توجه الملاحظة`,
+        L => `ينفذ تجربة مبسطة أمام الطلاب حول «${L}» ويسجل الملاحظات على السبورة`
+      ],
+      group: [
+        L => `تجربة استقصائية مصغرة حول «${L}» مع ورقة تسجيل النتائج`,
+        L => `خريطة مفاهيم جماعية لأفكار «${L}»`
+      ],
+      homework: L => `بحث قصير أو ملاحظة منزلية مرتبطة بـ«${L}» وتدوين النتائج`
+    },
+    'اللغة العربية': {
+      tools: ['الكتاب المدرسي', 'بطاقات الكلمات', 'السبورة', 'صور معبّرة'],
+      present: [
+        L => `يقرأ النص قراءة نموذجية ويناقش المعاني والمفردات الجديدة في «${L}»`,
+        L => `يشرح القاعدة مستخرجًا الأمثلة من نص «${L}» بمشاركة الطلاب`
+      ],
+      group: [
+        L => `بطاقات تدريبية على مهارات «${L}»`,
+        L => `مسابقة لغوية بين المجموعات حول «${L}»`
+      ],
+      homework: L => `تدريب كتابي من كتاب الطالب على «${L}» مع توظيفه في جمل من إنشاء الطالب`
+    },
+    'اللغة الإنجليزية': {
+      tools: ['Student Book', 'Flashcards', 'Audio track', 'Whiteboard'],
+      present: [
+        L => `Presents the target language of «${L}» using flashcards and model sentences`,
+        L => `Plays the audio and elicits key vocabulary related to «${L}»`
+      ],
+      group: [
+        L => `Pair-work practice cards on «${L}»`,
+        L => `Role-play activity using the language of «${L}»`
+      ],
+      homework: L => `Workbook exercises related to «${L}»`
+    },
+    'التربية الإسلامية': {
+      tools: ['المصحف الشريف', 'الكتاب المدرسي', 'بطاقات الآيات', 'قصة قصيرة'],
+      present: [
+        L => `يتلو الآيات/يعرض الموضوع «${L}» ويشرح المعاني الإجمالية بأسلوب قصصي`,
+        L => `يناقش القيمة المستفادة من «${L}» ويربطها بسلوك الطلاب اليومي`
+      ],
+      group: [
+        L => `بطاقات عمل حول المعاني والقيم في «${L}»`,
+        L => `تمثيل موقف قصير يجسد قيمة من «${L}»`
+      ],
+      homework: L => `حفظ المقطع المحدد وكتابة قيمة مستفادة من درس «${L}»`
+    },
+    'default': {
+      tools: ['الكتاب المدرسي', 'السبورة', 'بطاقات عمل', 'وسائل إيضاح مناسبة'],
+      present: [
+        L => `يعرض مفاهيم درس «${L}» بأمثلة محسوسة ويناقشها مع الطلاب`,
+        L => `يشرح الأفكار الرئيسة في «${L}» مستخدمًا أسلوب الأسئلة الموجهة`
+      ],
+      group: [
+        L => `بطاقة عمل جماعية حول «${L}»`,
+        L => `نشاط تطبيقي قصير على «${L}»`
+      ],
+      homework: L => `تمرين من كتاب الطالب مرتبط بدرس «${L}»`
+    }
+  };
+
+  // ---------- دالة إنشاء بيانات تحضير فارغة ----------
+  function newPlanData() {
+    return {
+      meta: {
+        curriculum: '', grade: '', band: 'mid', subject: '', unit: '', lesson: '',
+        section: 'أ', period: '1', week: '', date: today(), duration: 45,
+        level: 'متفاوت', strategies: [], teacher: '', school: ''
+      },
+      objectives: [],
+      resources: [],
+      stages: [],
+      assessment: { formative: [], summative: '', homework: '' },
+      differentiation: { advanced: '', support: '' },
+      reflection: '',
+      quality: null
+    };
+  }
+
+  // ---------- محرك الذكاء الاصطناعي الوهمي ----------
+  const MockAIEngine = {
+    async generate(p) {
+      await sleep(400);
+      const bank = SUBJ_BANK[p.subject] || SUBJ_BANK.default;
+      const d = newPlanData();
+      Object.assign(d.meta, {
+        curriculum: p.curriculum || '',
+        grade: p.grade || '',
+        band: p.band || 'mid',
+        subject: p.subject || '',
+        unit: p.unit || '',
+        lesson: p.lesson || 'درس نموذجي',
+        section: p.section || 'أ',
+        period: p.period || '1',
+        week: p.week || '',
+        date: p.date || today(),
+        duration: +p.duration || 45,
+        level: p.level || 'متفاوت',
+        strategies: p.strategies || [],
+        teacher: p.teacher || Store.settings.teacher || '',
+        school: p.school || Store.settings.school || ''
+      });
+
+      const band = d.meta.band || 'mid';
+      let blooms = BLOOM_BANDS[band].slice();
+      if (d.meta.level === 'متقدم' && !blooms.includes('create')) blooms.push(band === 'high' ? 'create' : 'evaluate');
+      const nObj = d.meta.duration >= 60 ? 5 : 4;
+      blooms = blooms.slice(0, nObj);
+      d.objectives = blooms.map((b, i) => ({
+        text: `أن ${BLOOM[b].verbs[i % BLOOM[b].verbs.length]} الطالبُ ${BLOOM[b].content(d.meta.lesson)}`,
+        bloom: b,
+        domain: i === blooms.length - 1 ? 'وجداني' : 'معرفي'
+      }));
+
+      const pct = [
+        ['التمهيد والتهيئة', .10],
+        ['الاستكشاف والعرض', .38],
+        ['التطبيق والأنشطة', .30],
+        ['التقويم', .14],
+        ['الختام والتكليف', .08]
+      ];
+      let times = pct.map(x => Math.max(2, Math.round(d.meta.duration * x[1])));
+      times[times.length - 1] += d.meta.duration - times.reduce((a, b) => a + b, 0);
+      const strat = (d.meta.strategies && d.meta.strategies.length) ? d.meta.strategies : ['العصف الذهني', 'التعلم التعاوني'];
+      const pick = (arr, i) => arr[i % arr.length];
+
+      d.stages = [{
+        name: 'التمهيد والتهيئة',
+        duration: times[0],
+        teacher: `يرحّب بالطلاب ويثير دافعيتهم بسؤال محفّز حول «${d.meta.lesson}»، ثم يربط الدرس بخبراتهم السابقة في «${d.meta.unit}».`,
+        student: 'يتفاعلون مع السؤال المحفّز ويسترجعون معلوماتهم السابقة ويعبّرون عن توقعاتهم.',
+        strategy: 'العصف الذهني',
+        assessment: 'أسئلة شفوية قصيرة'
+      }, {
+        name: 'الاستكشاف والعرض',
+        duration: times[1],
+        teacher: pick(bank.present, 0)(d.meta.lesson),
+        student: 'يلاحظون ويناقشون ويستنتجون المفهوم أو القاعدة بتوجيه من المعلم.',
+        strategy: pick(strat, 0),
+        assessment: 'ملاحظة المشاركة والاستنتاج'
+      }, {
+        name: 'التطبيق والأنشطة',
+        duration: times[2],
+        teacher: `ينظّم الطلاب في مجموعات ويوزّع ${pick(bank.group, 0)(d.meta.lesson)}، ثم يتابع الأداء ويقدّم تغذية راجعة فورية.`,
+        student: 'يعملون ضمن مجموعاتهم على إنجاز المهمة، ثم يعرضون نتائجهم أمام زملائهم.',
+        strategy: strat.includes('التعلم التعاوني') ? 'التعلم التعاوني' : pick(strat, 1),
+        assessment: 'تقويم أداء المجموعات'
+      }, {
+        name: 'التقويم',
+        duration: times[3],
+        teacher: 'يطبّق بطاقة خروج تتضمّن أسئلة مرتبطة بأهداف الدرس ويراجع الإجابات مع الطلاب.',
+        student: 'يجيبون فرديًا عن أسئلة بطاقة الخروج ويصحّحون إجاباتهم.',
+        strategy: 'التعلّم الفردي',
+        assessment: 'بطاقة خروج'
+      }, {
+        name: 'الختام والتكليف',
+        duration: times[4],
+        teacher: 'يلخّص أهم ما ورد في الدرس بمشاركة الطلاب، ويكلّفهم بالواجب المنزلي.',
+        student: 'يلخّصون أهم الأفكار المستفادة ويسجّلون الواجب المنزلي.',
+        strategy: 'التلخيص',
+        assessment: 'مراجعة شفوية سريعة'
+      }];
+
+      d.resources = [...bank.tools];
+      d.assessment = {
+        formative: ['الأسئلة الشفوية أثناء العرض', 'ملاحظة أداء المجموعات أثناء النشاط', 'بطاقة الخروج'],
+        summative: `تمرين قصير يقيس مدى تحقّق أهداف درس «${d.meta.lesson}».`,
+        homework: bank.homework(d.meta.lesson)
+      };
+      d.differentiation = {
+        advanced: `مهمة إثرائية للمتقدّمين: ${pick(bank.group, 1)(d.meta.lesson)} بمستوى أعلى.`,
+        support: 'دعم الطلاب المتعثّرين بتبسيط المهمة، وتقديم بطاقات مساندة، ومتابعة فردية أثناء النشاط.'
+      };
+      d.reflection = '';
+      return d;
+    }
+  };
+
+  // ---------- محول الذكاء الاصطناعي (يدعم mock و Worker) ----------
+  const AIAdapter = {
+    async generate(params) {
+      const s = Store.settings;
+      if (s.provider === 'mock' || !s.workerUrl) {
+        return MockAIEngine.generate(params);
+      }
+      try {
+        const res = await fetch(s.workerUrl.replace(/\/$/, '') + '/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + (s.token || '') },
+          body: JSON.stringify(params)
+        });
+        if (!res.ok) throw new Error('Worker responded with ' + res.status);
+        const json = await res.json();
+        if (json.error) throw new Error(json.error);
+        return json.data;
+      } catch (e) {
+        toast('⚠️ تعذّر الوصول للخادم — استُخدم المحرك التجريبي', 'warn');
+        return MockAIEngine.generate(params);
+      }
+    }
+  };
+
+  // ---------- محرك الجودة ----------
+  const QualityEngine = {
+    evaluate(d) {
+      const notes = [];
+      const parts = {};
+      // 1) الأهداف (30)
+      let s = 0;
+      const obs = d.objectives.filter(o => o.text && o.text.trim());
+      if (obs.length >= 3) s += 12;
+      else notes.push('يُفضّل ألا تقل الأهداف عن 3.');
+      if (obs.every(o => /^أن ي/.test(o.text.trim()))) s += 8;
+      else notes.push('صياغة الأهداف يجب أن تبدأ بـ«أن + فعل» قابل للقياس.');
+      const bl = new Set(obs.map(o => o.bloom));
+      if (bl.size >= 3) s += 10;
+      else if (bl.size === 2) { s += 6;
+        notes.push('نوّع مستويات بلوم أكثر (3 مستويات فأعلى).'); } else notes.push('الأهداف كلها في مستوى واحد من بلوم.');
+      parts.objectives = s;
+
+      // 2) الزمن (20)
+      const sum = d.stages.reduce((a, x) => a + (+x.duration || 0), 0);
+      let t = 0;
+      if (sum === +d.meta.duration) t = 20;
+      else if (Math.abs(sum - d.meta.duration) <= 3) { t = 14;
+        notes.push(`مجموع أزمنة المراحل (${sum} د) لايساوي زمن الحصة (${d.meta.duration} د) بدقة.`); } else notes
+        .push(`فجوة زمنية كبيرة: مجموع المراحل ${sum} د مقابل ${d.meta.duration} د.`);
+      parts.time = t;
+
+      // 3) المراحل والأنشطة (25)
+      let a = 0;
+      if (d.stages.length >= 4) a += 8;
+      if (d.stages.every(x => x.teacher && x.teacher.trim() && x.student && x.student.trim())) a += 9;
+      else notes.push('بعض المراحل تفتقر إلى نشاط المعلم أو الطالب.');
+      if (d.stages.every(x => x.assessment && x.assessment.trim())) a += 8;
+      else notes.push('أضف أداة تقويم لكل مرحلة.');
+      parts.stages = a;
+
+      // 4) التقويم والفروق (15)
+      let v = 0;
+      if (d.assessment.summative && d.assessment.summative.trim()) v += 5;
+      if (d.assessment.homework && d.assessment.homework.trim()) v += 5;
+      if (d.differentiation.advanced && d.differentiation.advanced.trim() &&
+        d.differentiation.support && d.differentiation.support.trim()) v += 5;
+      else notes.push('أكمل معالجة الفروق الفردية (متقدم/متعثر).');
+      parts.assess = v;
+
+      // 5) الوسائل والاستراتيجيات (10)
+      let r = 0;
+      if (d.resources.length >= 2) r += 5;
+      const st = new Set(d.stages.map(x => x.strategy).filter(Boolean));
+      if (st.size >= 3) r += 5;
+      else notes.push('نوّع الاستراتيجيات بين المراحل (3 فأكثر).');
+      parts.res = r;
+
+      const total = s + t + a + v + r;
+      return { total, parts, notes, grade: total >= 90 ? 'ممتاز' : total >= 75 ? 'جيد جدًا' : total >= 60 ? 'جيد' :
+          'يحتاج تحسين' };
+    }
+  };
+
+  // ---------- محرك القوالب ----------
+  const TemplateEngine = {
+    render(d, st, planId) {
+      const bloomName = b => ({ remember: 'تذكّر', understand: 'فهم', apply: 'تطبيق', analyze: 'تحليل', evaluate: 'تقويم',
+        create: 'إبداع' } [b] || '');
+      const rows = d.stages.map(s => `<tr>
+        <td class="c">${esc(s.name)}</td>
+        <td class="c">${s.duration} د</td>
+        <td>${esc(s.teacher)}</td>
+        <td>${esc(s.student)}</td>
+        <td class="c">${esc(s.strategy)}</td>
+        <td>${esc(s.assessment)}</td>
+      </tr>`).join('');
+      return `<div class="sheet ${st.printColor ? '' : 'bw'}">
+        <table class="master">
+          <thead>
+            <tr><td>
+              <table class="t0">
+                <tr>
+                  <td class="hside">${esc(st.ministry)}<br>وزارة التربية والتعليم<br>مكتب التربية: ${esc(st.eduOffice||'—')}</td>
+                  <td class="hmid"><div class="htitle">نموذج تحضير درس</div><div class="hsub">العام الدراسي: ١٤٤٧هـ — 2026م</div></td>
+                  <td class="hside">المدرسة: ${esc(d.meta.school||st.school||'—')}<br>المعلم/ـة: ${esc(d.meta.teacher||st.teacher||'—')}<br>التاريخ: ${esc(d.meta.date)}</td>
+                </tr>
+              </table>
+              <table class="t1">
+                <tr><th>المادة</th><td>${esc(d.meta.subject)}</td><th>الصف</th><td>${esc(d.meta.grade)}</td><th>الشعبة</th><td>${esc(d.meta.section)}</td><th>الحصة</th><td>${esc(d.meta.period)}</td><th>الزمن</th><td>${d.meta.duration} دقيقة</td></tr>
+                <tr><th>الوحدة</th><td colspan="4">${esc(d.meta.unit)}</td><th>عنوان الدرس</th><td colspan="4">${esc(d.meta.lesson)}</td></tr>
+                <tr><th>الأسبوع</th><td colspan="4">${esc(d.meta.week||'—')}</td><th>مستوى الطلاب</th><td colspan="4">${esc(d.meta.level)}</td></tr>
+              </table>
+            </td></tr>
+          </thead>
+          <tfoot>
+            <tr><td><div class="foot">مدرسة ${esc(d.meta.school||st.school||'')} — نموذج تحضير إلكتروني (منصة مُحضِّر) — رقم التحضير: ${esc(planId||'')}</div></td></tr>
+          </tfoot>
+          <tbody>
+            <tr><td>
+              <table class="t2"><tr><th class="h">الأهداف التعليمية <span class="muted">(مصنّفة وفق بلوم)</span></th></tr>
+                <tr><td><ol class="objs">${d.objectives.map(o => `<li>${esc(o.text)} <span class="tag">${bloomName(o.bloom)}</span></li>`).join('')}</ol></td></tr>
+              </table>
+              <table class="t2"><tr><th class="h">الوسائل التعليمية والاستراتيجيات</th></tr>
+                <tr><td><b>الوسائل:</b> ${d.resources.map(esc).join('، ')}<br><b>الاستراتيجيات:</b> ${[...new Set(d.stages.map(s=>s.strategy))].map(esc).join('، ')}</td></tr>
+              </table>
+              <table class="t3">
+                <thead><tr><th style="width:20mm">المرحلة</th><th style="width:11mm">الزمن</th><th style="width:56mm">نشاط المعلم</th><th style="width:46mm">نشاط الطالب</th><th style="width:25mm">الاستراتيجية</th><th style="width:30mm">التقويم</th></tr></thead>
+                <tbody>${rows}</tbody>
+              </table>
+              <table class="t2">
+                <tr><th class="h" style="width:50%">التقويم الختامي</th><th class="h">الواجب المنزلي</th></tr>
+                <tr><td>${esc(d.assessment.summative)}</td><td>${esc(d.assessment.homework)}</td></tr>
+              </table>
+              <table class="t2">
+                <tr><th class="h" style="width:50%">معالجة الفروق الفردية — المتقدّمون</th><th class="h">— المتعثّرون</th></tr>
+                <tr><td>${esc(d.differentiation.advanced)}</td><td>${esc(d.differentiation.support)}</td></tr>
+              </table>
+              ${st.showSignatures ? `<table class="t4"><tr><th>توقيع المعلم</th><th>توقيع الموجّه التربوي</th><th>مدير المدرسة</th></tr><tr class="sig"><td></td><td></td><td></td></tr></table>` : ''}
+            </td></tr>
+          </tbody>
+        </table>
+      </div>`;
+    }
+  };
+
+  // ---------- الحالة العامة ----------
+  let currentId = null;
+  let saveTimer = null;
+  let W = { step: 1, form: defaultWiz() };
+
+  function defaultWiz() {
+    return {
+      curId: 'ye',
+      gradeId: '',
+      subId: '',
+      unitId: '',
+      lesson: '',
+      lessonCustom: '',
+      duration: 45,
+      date: today(),
+      period: '1',
+      section: 'أ',
+      level: 'متفاوت',
+      strategies: ['التعلم التعاوني'],
+      notes: ''
+    };
+  }
+
+  // ---------- عرض الصفحات ----------
+  const view = html => document.getElementById('view').innerHTML = html;
+
+  function go(page, arg) {
+    location.hash = '#/' + page + (arg ? '/' + arg : '');
+  }
+
+  // ------ لوحة التحكم ------
+  function renderDashboard() {
+    const n = Store.plans.length;
+    const avg = n ? Math.round(Store.plans.reduce((a, p) => a + (p.data.quality?.total || 0), 0) / n) : 0;
+    const recent = [...Store.plans].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 3);
+    view(`
+      <section class="hero card">
+        <div>
+          <h1>مرحبًا ${esc(Store.settings.teacher||'أستاذنا')} 👋</h1>
+          <p>أنشئ تحضيرًا تربويًا متكاملًا في أقل من دقيقة، ثم اطبعه كورقة رسمية دقيقة.</p>
+          <div class="hero-actions" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+            <a class="btn" href="#/new">✨ تحضير جديد بالذكاء الاصطناعي</a>
+            <a class="btn ghost" href="#/library">🗂️ فتح الأرشيف</a>
+          </div>
+        </div>
+      </section>
+      <section class="grid stats">
+        <div class="card stat"><div class="stat-v">${n}</div><div class="stat-l">تحضيرًا محفوظًا</div><div class="stat-s">في الأرشيف</div></div>
+        <div class="card stat"><div class="stat-v">${avg}%</div><div class="stat-l">متوسط الجودة</div><div class="stat-s">وفق معايير بلوم والزمن</div></div>
+        <div class="card stat"><div class="stat-v">~30 ث</div><div class="stat-l">زمن الإنشاء</div><div class="stat-s">بدلًا من ساعة يدويًا</div></div>
+      </section>
+      <section class="card">
+        <h2>أحدث التحاضير</h2>
+        ${recent.length ? recent.map(planRow).join('') : '<p class="empty">لا توجد تحاضير بعد — ابدأ بإنشاء أول تحضير.</p>'}
+      </section>
+      <section class="card">
+        <h2>دورة عمل المنصة</h2>
+        <div class="pipe">${['واجهة المعلم','Worker / API','محرك التحضير','AI Engine','JSON موحّد','Template Engine','معاينة وطباعة A4','الأرشيف'].map((s,i,a)=>`<span class="pipe-s">${s}</span>${i<a.length-1?'<span class="pipe-a"> ← </span>':''}`).join('')}</div>
+        <p class="note">المبدأ: <b>Template ثابت + JSON متغيّر = ورقة تحضير دقيقة</b> — البيانات منفصلة تمامًا عن التصميم.</p>
+      </section>
+    `);
+    setActiveNav('dashboard');
+  }
+
+  function planRow(p) {
+    const q = p.data.quality?.total || 0;
+    return `<div class="prow">
+      <div class="pr-main"><b>${esc(p.title)}</b><span class="pr-meta">${esc(p.data.meta.subject)} • ${esc(p.data.meta.grade)} • ${fmtDate(p.updatedAt)}</span></div>
+      <span class="badge ${qClass(q)}">${q}%</span>
+      <span class="badge st">${p.status}</span>
+      <div class="pr-act" style="display:flex;gap:6px;flex-wrap:wrap">
+        <a class="btn sm ghost" href="#/preview/${p.id}">معاينة</a>
+        <a class="btn sm ghost" href="#/edit/${p.id}">تعديل</a>
+        <button class="btn sm ghost" data-action="dup-plan" data-id="${p.id}">📋 تكرار</button>
+        <button class="btn sm danger" data-action="del-plan" data-id="${p.id}">🗑️</button>
+      </div>
+    </div>`;
+  }
+
+  // ------ تحضير جديد (Wizard) ------
+  function renderNew() {
+    const f = W.form;
+    const cur = KB.curricula.find(c => c.id === f.curId);
+    const grades = cur ? cur.grades : [];
+    const g = grades.find(x => x.id === f.gradeId);
+    const subs = g ? g.subjects : [];
+    const sub = subs.find(x => x.id === f.subId);
+    const units = sub ? sub.units : [];
+    const u = units.find(x => x.id === f.unitId);
+    const lessons = u ? u.lessons : [];
+
+    const sel = (arr, id) => arr.map(item =>
+      `<option value="${item.id}" ${item.id===id?'selected':''}>${esc(item.name)}</option>`).join('');
+
+    const stratList = ['التعلم التعاوني', 'العصف الذهني', 'التعلم بالاكتشاف', 'حل المشكلات', 'التعلم باللعب', 'الاستقصاء',
+      'التعلم الذاتي', 'الحوار والمناقشة'
+    ];
+    const chips = stratList.map(s =>
+      `<span class="chip ${f.strategies.includes(s)?'on':''}" data-action="chip" data-v="${esc(s)}">${esc(s)}</span>`)
+      .join('');
+
+    const stepLabels = ['البيانات الأساسية', 'خصائص الحصة', 'مراجعة وتوليد'];
+    const stepsHtml = stepLabels.map((l, i) =>
+      `<div class="ws ${i+1===W.step?'on':i+1<W.step?'done':''}">${l}</div>`).join('');
+
+    let stepContent = '';
+    if (W.step === 1) {
+      const lessonOpts = lessons.map(l => `<option value="${esc(l)}">${esc(l)}</option>`).join('');
+      stepContent = `
+        <div class="field"><label>المنهج <select data-cascade="curId" data-k="curId">${sel(KB.curricula,f.curId)}</select></label></div>
+        <div class="field"><label>الصف <select data-cascade="gradeId" data-k="gradeId"><option value="">اختر الصف</option>${sel(grades,f.gradeId)}</select></label></div>
+        <div class="field"><label>المادة <select data-cascade="subId" data-k="subId"><option value="">اختر المادة</option>${sel(subs,f.subId)}</select></label></div>
+        <div class="field"><label>الوحدة <select data-cascade="unitId" data-k="unitId"><option value="">اختر الوحدة</option>${sel(units,f.unitId)}</select></label></div>
+        <div class="field"><label>الدرس
+          <select data-cascade="lesson" data-k="lesson"><option value="">اختر الدرس</option>${lessonOpts}<option value="__custom" ${f.lesson==='__custom'?'selected':''}>✏️ درس آخر (إدخال يدوي)</option></select>
+        </label></div>
+        ${f.lesson==='__custom' ? `<div class="field"><label>عنوان الدرس <input data-bind="wiz.lessonCustom" value="${esc(f.lessonCustom)}" placeholder="اكتب عنوان الدرس..."></label></div>` : ''}
+      `;
+    } else if (W.step === 2) {
+      stepContent = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="field"><label>زمن الحصة (دقيقة) <input type="number" data-bind="wiz.duration" value="${f.duration}" min="20" max="120"></label></div>
+          <div class="field"><label>التاريخ <input type="date" data-bind="wiz.date" value="${f.date}"></label></div>
+          <div class="field"><label>رقم الحصة <input data-bind="wiz.period" value="${esc(f.period)}"></label></div>
+          <div class="field"><label>الشعبة <input data-bind="wiz.section" value="${esc(f.section)}"></label></div>
+        </div>
+        <div class="field"><label>مستوى الطلاب <select data-bind="wiz.level">
+          <option value="متفاوت" ${f.level==='متفاوت'?'selected':''}>متفاوت</option>
+          <option value="متقدم" ${f.level==='متقدم'?'selected':''}>متقدم</option>
+          <option value="متوسط" ${f.level==='متوسط'?'selected':''}>متوسط</option>
+          <option value="يحتاج دعم" ${f.level==='يحتاج دعم'?'selected':''}>يحتاج دعم</option>
+        </select></label></div>
+        <div class="field"><label>الاستراتيجيات التعليمية <div class="chips">${chips}</div></label></div>
+        <div class="field"><label>ملاحظات إضافية <textarea data-bind="wiz.notes" rows="2">${esc(f.notes)}</textarea></label></div>
+      `;
+    } else {
+      const curN = cur ? cur.name : '—';
+      const gN = g ? g.name : '—';
+      const sN = sub ? sub.name : '—';
+      const uN = u ? u.name : '—';
+      const lN = f.lesson === '__custom' ? f.lessonCustom : f.lesson;
+      stepContent = `
+        <div class="card" style="background:var(--pri-l);border-color:var(--pri)">
+          <table style="width:100%;font-size:14px">
+            <tr><th style="text-align:right">المنهج</th><td>${esc(curN)}</td><th style="text-align:right">الصف</th><td>${esc(gN)}</td></tr>
+            <tr><th style="text-align:right">المادة</th><td>${esc(sN)}</td><th style="text-align:right">الوحدة</th><td>${esc(uN)}</td></tr>
+            <tr><th style="text-align:right">الدرس</th><td colspan="3"><b>${esc(lN)}</b></td></tr>
+            <tr><th style="text-align:right">الزمن</th><td>${f.duration} د</td><th style="text-align:right">المستوى</th><td>${esc(f.level)}</td></tr>
+            <tr><th style="text-align:right">الاستراتيجيات</th><td colspan="3">${f.strategies.map(esc).join('، ')}</td></tr>
+          </table>
+        </div>
+        <div style="text-align:center;margin-top:16px">
+          <button class="btn" data-action="wiz-gen" style="font-size:18px;padding:14px 36px">🤖 توليد التحضير بالذكاء الاصطناعي</button>
+          <p class="note">سيمر التحضير بمراحل: توليد ← مراجعة ← تصحيح ← درجة جودة</p>
+        </div>
+      `;
+    }
+
+    view(`
+      <div class="card">
+        <h2 style="margin-bottom:8px">✨ تحضير درس جديد</h2>
+        <div class="wsteps">${stepsHtml}</div>
+        <div style="margin-top:12px">${stepContent}</div>
+        <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
+          ${W.step>1 ? `<button class="btn ghost" data-action="wiz-back">← السابق</button>` : ''}
+          ${W.step<3 ? `<button class="btn" data-action="wiz-next">التالي →</button>` : ''}
+        </div>
+      </div>
+    `);
+    setActiveNav('new');
+  }
+
+  // ------ التعديل ------
+  function renderEdit(id) {
+    const p = Store.plans.find(x => x.id === id);
+    if (!p) { location.hash = '#/library'; return; }
+    currentId = id;
+    const d = p.data;
+    const q = d.quality || QualityEngine.evaluate(d);
+
+    const bloomOpts = (sel) => Object.entries(BLOOM).map(([k, v]) =>
+      `<option value="${k}" ${k===sel?'selected':''}>${v.name}</option>`).join('');
+    const domainOpts = (sel) => ['معرفي', 'وجداني', 'مهاري'].map(v =>
+      `<option value="${v}" ${v===sel?'selected':''}>${v}</option>`).join('');
+
+    const objHtml = d.objectives.map((o, i) => `
+      <div class="obj-row">
+        <span class="num">${i+1}</span>
+        <input data-bind="obj.${i}.text" value="${esc(o.text)}" placeholder="نص الهدف...">
+        <select data-bind="obj.${i}.bloom">${bloomOpts(o.bloom)}</select>
+        <select data-bind="obj.${i}.domain">${domainOpts(o.domain)}</select>
+        <button class="icon" data-action="del-obj" data-i="${i}">✕</button>
+      </div>
+    `).join('');
+
+    const stageHtml = d.stages.map((s, i) => `
+      <div class="card stage">
+        <div class="stage-h">
+          <input class="sname" data-bind="st.${i}.name" value="${esc(s.name)}" placeholder="اسم المرحلة">
+          <label style="font-size:12px;display:flex;align-items:center;gap:4px">الزمن <input class="smin" type="number" data-bind="st.${i}.duration" value="${s.duration}" min="1"> د</label>
+          <button class="icon" data-action="del-stage" data-i="${i}">✕</button>
+        </div>
+        <div class="stage-g">
+          <label>نشاط المعلم<textarea rows="2" data-bind="st.${i}.teacher">${esc(s.teacher)}</textarea></label>
+          <label>نشاط الطالب<textarea rows="2" data-bind="st.${i}.student">${esc(s.student)}</textarea></label>
+          <label>الاستراتيجية<input data-bind="st.${i}.strategy" value="${esc(s.strategy)}"></label>
+          <label>التقويم<input data-bind="st.${i}.assessment" value="${esc(s.assessment)}"></label>
+        </div>
+      </div>
+    `).join('');
+
+    const formHtml = d.assessment.formative.map((v, i) =>
+      `<div style="display:flex;gap:6px;margin-bottom:4px"><input data-bind="as.form.${i}" value="${esc(v)}" placeholder="أداة تقويم تكويني"><button class="icon" data-action="del-form" data-i="${i}">✕</button></div>`
+    ).join('');
+
+    const qualityHtml = renderQuality(q);
+
+    view(`
+      <div class="edit-head card">
+        <div>
+          <input class="ttl" data-bind="meta.lesson" value="${esc(d.meta.lesson)}" placeholder="عنوان الدرس">
+          <div class="pr-meta">${esc(d.meta.subject)} • ${esc(d.meta.grade)} • <span id="save-ind">محفوظ ✓</span></div>
+        </div>
+        <div class="acts">
+          <button class="btn sm" data-action="go-preview">👁️ معاينة وطباعة</button>
+          <button class="btn sm ghost" data-action="regen">🔁 إعادة توليد</button>
+          <button class="btn sm ghost" data-action="toggle-status">${p.status==='مكتمل'?'↩️ إلى مسودة':'✅ اعتماد'}</button>
+          <button class="btn sm danger" data-action="del-plan" data-id="${p.id}">🗑️</button>
+        </div>
+      </div>
+      <div class="edit-grid">
+        <div class="edit-main">
+          <div class="card">
+            <h3>📋 البيانات الأساسية</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <label class="f"><span>التاريخ</span><input type="date" data-bind="meta.date" value="${d.meta.date}"></label>
+              <label class="f"><span>رقم الحصة</span><input data-bind="meta.period" value="${esc(d.meta.period)}"></label>
+              <label class="f"><span>الشعبة</span><input data-bind="meta.section" value="${esc(d.meta.section)}"></label>
+              <label class="f"><span>الأسبوع</span><input data-bind="meta.week" value="${esc(d.meta.week)}"></label>
+              <label class="f"><span>الزمن (دقيقة)</span><input type="number" data-bind="meta.duration" value="${d.meta.duration}" min="20" max="120"></label>
+              <label class="f"><span>مستوى الطلاب</span>
+                <select data-bind="meta.level">
+                  <option value="متفاوت" ${d.meta.level==='متفاوت'?'selected':''}>متفاوت</option>
+                  <option value="متقدم" ${d.meta.level==='متقدم'?'selected':''}>متقدم</option>
+                  <option value="متوسط" ${d.meta.level==='متوسط'?'selected':''}>متوسط</option>
+                  <option value="يحتاج دعم" ${d.meta.level==='يحتاج دعم'?'selected':''}>يحتاج دعم</option>
+                </select>
+              </label>
+              <label class="f"><span>المدرسة</span><input data-bind="meta.school" value="${esc(d.meta.school)}"></label>
+              <label class="f"><span>المعلم/ـة</span><input data-bind="meta.teacher" value="${esc(d.meta.teacher)}"></label>
+            </div>
+          </div>
+          <div class="card">
+            <h3>🎯 الأهداف التعليمية <span style="font-size:12px;font-weight:400;color:var(--mut)">(بلوم + المجال)</span></h3>
+            ${objHtml}
+            <button class="btn sm ghost" data-action="add-obj">+ إضافة هدف</button>
+          </div>
+          <div class="card">
+            <h3>📊 المراحل والأنشطة</h3>
+            ${stageHtml}
+            <button class="btn sm ghost" data-action="add-stage">+ إضافة مرحلة</button>
+          </div>
+          <div class="card">
+            <h3>📝 التقويم والواجب</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <label class="f"><span>التقويم الختامي</span><textarea rows="2" data-bind="as.summative">${esc(d.assessment.summative)}</textarea></label>
+              <label class="f"><span>الواجب المنزلي</span><textarea rows="2" data-bind="as.homework">${esc(d.assessment.homework)}</textarea></label>
+            </div>
+            <label class="f"><span>التقويم التكويني (أدوات)</span></label>
+            ${formHtml}
+            <button class="btn sm ghost" data-action="add-form">+ إضافة أداة تقويم</button>
+          </div>
+          <div class="card">
+            <h3>🧩 الفروق الفردية</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <label class="f"><span>المتقدّمون</span><textarea rows="2" data-bind="diff.advanced">${esc(d.differentiation.advanced)}</textarea></label>
+              <label class="f"><span>المتعثّرون</span><textarea rows="2" data-bind="diff.support">${esc(d.differentiation.support)}</textarea></label>
+            </div>
+            <label class="f"><span>انعكاس/ملاحظات</span><textarea rows="2" data-bind="reflection">${esc(d.reflection)}</textarea></label>
+          </div>
+        </div>
+        <aside class="edit-side">
+          <div class="card qcard" id="qcard">${qualityHtml}</div>
+          <div class="card">
+            <h3>📄 JSON الموحّد</h3>
+            <p class="note">كل المحتوى مخزّن كبيانات منظمة تفصل عن التصميم.</p>
+            <button class="btn sm ghost" data-action="copy-json">📋 نسخ JSON</button>
+          </div>
+        </aside>
+      </div>
+    `);
+    setActiveNav('dashboard');
+  }
+
+  function renderQuality(q) {
+    const C = 326.73;
+    const off = C * (1 - q.total / 100);
+    const col = q.total >= 90 ? '#16a34a' : q.total >= 75 ? '#0f766e' : q.total >= 60 ? '#d97706' : '#dc2626';
+    const bars = [
+      ['الأهداف (بلوم والصياغة)', q.parts.objectives, 30],
+      ['توافق الزمن', q.parts.time, 20],
+      ['المراحل والأنشطة', q.parts.stages, 25],
+      ['التقويم والفروق', q.parts.assess, 15],
+      ['الوسائل والاستراتيجيات', q.parts.res, 10]
+    ];
+    return `<h3 style="text-align:center">درجة الجودة التربوية</h3>
+      <div style="text-align:center">
+        <svg viewBox="0 0 120 120" class="gauge">
+          <circle cx="60" cy="60" r="52" class="g-bg"/>
+          <circle cx="60" cy="60" r="52" class="g-fg" style="stroke:${col};stroke-dasharray:${C};stroke-dashoffset:${off}"/>
+          <text x="60" y="60" class="g-num" fill="${col}">${q.total}</text>
+          <text x="60" y="80" class="g-gr">${q.grade}</text>
+        </svg>
+      </div>
+      ${bars.map(b => `<div class="bar-row"><span>${b[0]}</span><div class="bar"><i style="width:${Math.round(b[1]/b[2]*100)}%"></i></div><b>${b[1]}/${b[2]}</b></div>`).join('')}
+      ${q.notes.length ? `<ul class="qnotes">${q.notes.map(n=>`<li>💡 ${esc(n)}</li>`).join('')}</ul>` : `<p class="ok">✓ التحضير مستوفٍ للمعايير</p>`}
+    `;
+  }
+
+  // ------ المعاينة ------
+  function renderPreview(id) {
+    const p = Store.plans.find(x => x.id === id);
+    if (!p) { location.hash = '#/library'; return; }
+    currentId = id;
+    const sheet = TemplateEngine.render(p.data, Store.settings, p.id);
+    document.getElementById('print-root').innerHTML = sheet;
+    view(`
+      <div class="card toolbar no-print">
+        <a class="btn sm ghost" href="#/edit/${p.id}">✏️ تعديل</a>
+        <button class="btn sm" data-action="do-print">🖨️ طباعة / حفظ PDF</button>
+        <button class="btn sm ghost" data-action="toggle-json">{ } JSON</button>
+        <span class="pr-meta" style="margin-inline-start:auto;font-size:12px;color:var(--mut)">ورقة A4 — الهوامش والأعمدة مثبّتة بدقة</span>
+      </div>
+      <pre id="jsonbox" class="json hidden">${esc(JSON.stringify(p.data,null,2))}</pre>
+      <div class="paper-wrap"><div class="paper">${sheet}</div></div>
+    `);
+    setActiveNav('dashboard');
+  }
+
+  // ------ الأرشيف ------
+  function renderLibrary() {
+    const listHtml = (q) => {
+      const filtered = Store.plans.filter(p =>
+        p.title.includes(q) || p.data.meta.subject.includes(q) || p.data.meta.grade.includes(q)
+      ).sort((a, b) => b.updatedAt - a.updatedAt);
+      return filtered.length ? filtered.map(planRow).join('') : '<p class="empty">لا توجد نتائج مطابقة.</p>';
+    };
+    view(`
+      <div class="card">
+        <div class="lib-head" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px">
+          <h2 style="flex:1">🗂️ أرشيف التحاضير</h2>
+          <input id="lib-q" placeholder="🔍 بحث بالعنوان، المادة، أو الصف…" style="max-width:320px;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line)">
+        </div>
+        <div id="lib-list">${listHtml('')}</div>
+      </div>
+    `);
+    setActiveNav('library');
+  }
+
+  // ------ الإعدادات ------
+  function renderSettings() {
+    const s = Store.settings;
+    view(`
+      <div class="card">
+        <h2>⚙️ الإعدادات</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <label class="f"><span>المعلم/ـة</span><input data-bind="set.teacher" value="${esc(s.teacher)}"></label>
+          <label class="f"><span>المدرسة</span><input data-bind="set.school" value="${esc(s.school)}"></label>
+          <label class="f"><span>الجمهورية/الوزارة</span><input data-bind="set.ministry" value="${esc(s.ministry)}"></label>
+          <label class="f"><span>مكتب التربية</span><input data-bind="set.eduOffice" value="${esc(s.eduOffice)}"></label>
+          <label class="f"><span>الزمن الافتراضي (دقيقة)</span><input type="number" data-bind="set.duration" value="${s.duration}" min="20" max="120"></label>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🖨️ خيارات الطباعة</h3>
+        <label style="display:flex;align-items:center;gap:8px;font-weight:700"><input type="checkbox" data-bind="set.printColor" ${s.printColor?'checked':''}> طباعة بالألوان (تعطيل للأبيض-أسود)</label>
+        <label style="display:flex;align-items:center;gap:8px;font-weight:700"><input type="checkbox" data-bind="set.showSignatures" ${s.showSignatures?'checked':''}> إظهار خانة التوقيعات</label>
+      </div>
+      <div class="card">
+        <h3>🤖 الذكاء الاصطناعي</h3>
+        <label class="f"><span>المزود (Provider)</span>
+          <select data-bind="set.provider">
+            <option value="mock" ${s.provider==='mock'?'selected':''}>🧪 المحرك التجريبي الداخلي (بدون مفاتيح)</option>
+            <option value="gemini" ${s.provider==='gemini'?'selected':''}>🔵 Gemini (Google)</option>
+            <option value="openai" ${s.provider==='openai'?'selected':''}>🟢 OpenAI (GPT)</option>
+            <option value="openrouter" ${s.provider==='openrouter'?'selected':''}>🟣 OpenRouter</option>
+          </select>
+        </label>
+        <label class="f"><span>رابط Worker (للإنتاج)</span><input data-bind="set.workerUrl" value="${esc(s.workerUrl)}" placeholder="https://your-worker.workers.dev"></label>
+        <label class="f"><span>رمز المصادقة (Bearer Token)</span><input type="password" data-bind="set.token" value="${esc(s.token)}" placeholder="••••••••"></label>
+        <p class="note" style="color:#b91c1c;font-weight:700">🔐 المفاتيح السرية لا تُخزَّن في المتصفح إطلاقًا — تُدار في Worker عبر wrangler secret.</p>
+      </div>
+      <div class="card">
+        <h3>📐 حول البنية</h3>
+        <p class="note">الواجهة → Worker → محرك التحضير → AI → JSON → Template → طباعة A4 → أرشيف</p>
+        <p class="note">جميع البيانات في النموذج الأولي مخزّنة في الذاكرة. للإنتاج، استخدم D1 و R2.</p>
+      </div>
+    `);
+    setActiveNav('settings');
+  }
+
+  // ------ التنقل ------
+  function setActiveNav(page) {
+    document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('active', a.dataset.nav === page));
+  }
+
+  function route() {
+    const h = location.hash.replace(/^#\/?/, '') || 'dashboard';
+    const [page, arg] = h.split('/');
+    const views = {
+      dashboard: renderDashboard,
+      new: renderNew,
+      edit: renderEdit,
+      preview: renderPreview,
+      library: renderLibrary,
+      settings: renderSettings
+    };
+    if (views[page]) views[page](arg);
+    else renderDashboard();
+    window.scrollTo(0, 0);
+  }
+
+  // ---------- معالجة الأحداث ----------
+  document.addEventListener('click', onClick);
+  document.addEventListener('input', onInput);
+  document.addEventListener('change', onInput);
+
+  function onClick(e) {
+    const el = e.target.closest('[data-action]');
+    if (!el) return;
+    const act = el.dataset.action;
+    const id = el.dataset.id || currentId;
+
+    if (act === 'wiz-next') {
+      const f = W.form;
+      if (W.step === 1) {
+        const l = f.lesson === '__custom' ? f.lessonCustom.trim() : f.lesson;
+        if (!l) { toast('يرجى اختيار درس أو إدخال عنوانه', 'bad'); return; }
+      }
+      if (W.step < 3) { W.step++;
+        renderNew(); }
+    } else if (act === 'wiz-back') { if (W.step > 1) { W.step--;
+        renderNew(); } } else if (act === 'wiz-gen') {
+      runGeneration();
+    } else if (act === 'chip') {
+      const v = el.dataset.v;
+      const idx = W.form.strategies.indexOf(v);
+      if (idx > -1) W.form.strategies.splice(idx, 1);
+      else W.form.strategies.push(v);
+      renderNew();
+    } else if (act === 'add-obj') {
+      const p = findPlan();
+      if (p) { p.data.objectives.push({ text: '', bloom: 'understand', domain: 'معرفي' });
+        saveAndRefresh(p); }
+    } else if (act === 'del-obj') {
+      const i = +el.dataset.i;
+      const p = findPlan();
+      if (p) { p.data.objectives.splice(i, 1);
+        saveAndRefresh(p); }
+    } else if (act === 'add-stage') {
+      const p = findPlan();
+      if (p) { p.data.stages.push({ name: 'مرحلة جديدة', duration: 5, teacher: '', student: '', strategy: '', assessment: '' });
+        saveAndRefresh(p); }
+    } else if (act === 'del-stage') {
+      const i = +el.dataset.i;
+      const p = findPlan();
+      if (p) { p.data.stages.splice(i, 1);
+        saveAndRefresh(p); }
+    } else if (act === 'add-form') {
+      const p = findPlan();
+      if (p) { p.data.assessment.formative.push('');
+        saveAndRefresh(p); }
+    } else if (act === 'del-form') {
+      const i = +el.dataset.i;
+      const p = findPlan();
+      if (p) { p.data.assessment.formative.splice(i, 1);
+        saveAndRefresh(p); }
+    } else if (act === 'go-preview') { go('preview', currentId); } else if (act === 'do-print') { printPlan(); } else if (act ===
+      'toggle-json') {
+      const jb = document.getElementById('jsonbox');
+      if (jb) jb.classList.toggle('hidden');
+    } else if (act === 'copy-json') {
+      const p = findPlan();
+      if (!p) return;
+      const txt = JSON.stringify(p.data, null, 2);
+      navigator.clipboard?.writeText(txt).then(() => toast('تم نسخ JSON')).catch(() => toast('اضغط Ctrl+C لنسخ النص'));
+    } else if (act === 'regen') {
+      confirmBox('سيتم إعادة توليد المحتوى بالكامل مع الاحتفاظ بالبيانات الأساسية. متابعة؟', 'confirm-regen', id);
+    } else if (act === 'confirm-regen') {
+      const p = Store.plans.find(x => x.id === id);
+      if (p) {
+        const meta = p.data.meta;
+        const params = {
+          curriculum: meta.curriculum,
+          grade: meta.grade,
+          band: meta.band || 'mid',
+          subject: meta.subject,
+          unit: meta.unit,
+          lesson: meta.lesson,
+          duration: meta.duration,
+          level: meta.level,
+          strategies: meta.strategies,
+          section: meta.section,
+          period: meta.period,
+          date: meta.date,
+          teacher: meta.teacher,
+          school: meta.school
+        };
+        toast('جاري إعادة التوليد...');
+        AIAdapter.generate(params).then(data => {
+          p.data.objectives = data.objectives;
+          p.data.stages = data.stages;
+          p.data.resources = data.resources;
+          p.data.assessment = data.assessment;
+          p.data.differentiation = data.differentiation;
+          p.data.reflection = data.reflection;
+          p.data.quality = QualityEngine.evaluate(p.data);
+          p.updatedAt = Date.now();
+          toast('تم إعادة التوليد ✓');
+          renderEdit(p.id);
+        }).catch(() => toast('فشل إعادة التوليد', 'bad'));
+        closeModal();
+      }
+    } else if (act === 'toggle-status') {
+      const p = findPlan();
+      if (p) { p.status = p.status === 'مكتمل' ? 'مسودة' : 'مكتمل';
+        saveAndRefresh(p); }
+    } else if (act === 'del-plan') {
+      const pid = el.dataset.id || currentId;
+      confirmBox('هل أنت متأكد من حذف هذا التحضير؟ لا يمكن استعادته.', 'confirm-del', pid);
+    } else if (act === 'confirm-del') {
+      const pid = el.dataset.id;
+      const idx = Store.plans.findIndex(x => x.id === pid);
+      if (idx > -1) { Store.plans.splice(idx, 1);
+        toast('تم الحذف'); }
+      closeModal();
+      if (pid === currentId) { go('library'); } else renderLibrary();
+    } else if (act === 'dup-plan') {
+      const pid = el.dataset.id;
+      const orig = Store.plans.find(x => x.id === pid);
+      if (orig) {
+        const copy = JSON.parse(JSON.stringify(orig));
+        copy.id = uid();
+        copy.title = 'نسخة من ' + orig.title;
+        copy.createdAt = Date.now();
+        copy.updatedAt = Date.now();
+        Store.plans.unshift(copy);
+        toast('تم تكرار التحضير');
+        renderLibrary();
+      }
+    } else if (act === 'close-modal') { closeModal(); }
+  }
+
+  function onInput(e) {
+    const el = e.target;
+    const bind = el.dataset.bind;
+    if (!bind) {
+      if (el.id === 'lib-q') {
+        const q = el.value.trim();
+        const list = document.getElementById('lib-list');
+        if (list) {
+          const filtered = Store.plans.filter(p =>
+            p.title.includes(q) || p.data.meta.subject.includes(q) || p.data.meta.grade.includes(q)
+          ).sort((a, b) => b.updatedAt - a.updatedAt);
+          list.innerHTML = filtered.length ? filtered.map(planRow).join('') : '<p class="empty">لا توجد نتائج مطابقة.</p>';
+        }
+        return;
+      }
+      const cascade = el.dataset.cascade;
+      if (cascade) {
+        const val = el.value;
+        const f = W.form;
+        if (cascade === 'curId') { f.curId = val;
+          f.gradeId = f.subId = f.unitId = '';
+          f.lesson = ''; }
+        if (cascade === 'gradeId') { f.gradeId = val;
+          f.subId = f.unitId = '';
+          f.lesson = ''; }
+        if (cascade === 'subId') { f.subId = val;
+          f.unitId = '';
+          f.lesson = ''; }
+        if (cascade === 'unitId') { f.unitId = val;
+          f.lesson = ''; }
+        if (cascade === 'lesson') { f.lesson = val; }
+        renderNew();
+        return;
+      }
+      return;
+    }
+
+    const val = el.type === 'checkbox' ? el.checked : el.value;
+
+    if (bind.startsWith('set.')) {
+      setPath(Store.settings, bind.slice(4), val);
+      return;
+    }
+    if (bind.startsWith('wiz.')) {
+      setPath(W.form, bind.slice(4), val);
+      return;
+    }
+
+    const p = findPlan();
+    if (!p) return;
+    const map = { obj: 'objectives', st: 'stages', as: 'assessment', diff: 'differentiation', res: 'resources' };
+    let path = bind.replace(/^(\w+)\./, (m, k) => (map[k] || k) + '.');
+    setPath(p.data, path, val);
+    p.updatedAt = Date.now();
+    autoSave(p);
+  }
+
+  // ---------- المساعدات الداخلية ----------
+  function findPlan() {
+    return Store.plans.find(x => x.id === currentId);
+  }
+
+  function saveAndRefresh(p) {
+    p.updatedAt = Date.now();
+    p.data.quality = QualityEngine.evaluate(p.data);
+    renderEdit(p.id);
+  }
+
+  function autoSave(p) {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      p.updatedAt = Date.now();
+      const ind = document.getElementById('save-ind');
+      if (ind) ind.textContent = 'تم الحفظ التلقائي ✓ ' + new Date().toLocaleTimeString('ar', { hour: '2-digit',
+        minute: '2-digit' });
+      p.data.quality = QualityEngine.evaluate(p.data);
+      const qc = document.getElementById('qcard');
+      if (qc) qc.innerHTML = renderQuality(p.data.quality);
+    }, 350);
+  }
+
+  function printPlan() {
+    const p = Store.plans.find(x => x.id === currentId);
+    if (!p) { toast('لا يوجد تحضير للطباعة'); return; }
+    document.getElementById('print-root').innerHTML = TemplateEngine.render(p.data, Store.settings, p.id);
+    setTimeout(() => window.print(), 200);
+  }
+
+  // ---------- النوافذ المنبثقة ----------
+  function modal(html) {
+    const ov = document.getElementById('overlay');
+    ov.innerHTML = `<div class="ovl" style="display:grid;place-items:center;min-height:100%"><div class="mbox">${html}</div></div>`;
+    ov.classList.add('on');
+  }
+
+  function closeModal() {
+    document.getElementById('overlay').classList.remove('on');
+  }
+
+  function confirmBox(msg, action, id) {
+    modal(`
+      <h3>تأكيد</h3>
+      <p>${msg}</p>
+      <div class="acts">
+        <button class="btn danger" data-action="${action}" data-id="${id||''}">تأكيد</button>
+        <button class="btn ghost" data-action="close-modal">إلغاء</button>
+      </div>
+    `);
+  }
+
+  function progressModal(steps) {
+    modal(`
+      <h3>🤖 محرك التحضير يعمل…</h3>
+      <ul class="steps">${steps.map((s,i)=>`<li id="stp-${i}"><span class="dot"></span>${esc(s)}</li>`).join('')}</ul>
+    `);
+  }
+
+  function markStep(i, cls) {
+    const li = document.getElementById('stp-' + i);
+    if (!li) return;
+    li.classList.remove('doing');
+    if (cls) li.classList.add(cls);
+  }
+
+  // ---------- التوليد ----------
+  function collectWizard() {
+    const f = W.form;
+    const cur = KB.curricula.find(c => c.id === f.curId);
+    const g = cur?.grades.find(x => x.id === f.gradeId);
+    const sub = g?.subjects.find(x => x.id === f.subId);
+    const u = sub?.units.find(x => x.id === f.unitId);
+    const lesson = f.lesson === '__custom' ? f.lessonCustom.trim() : f.lesson;
+    return {
+      curriculum: cur?.name || '',
+      grade: g?.name || '',
+      band: g?.band || 'mid',
+      subject: sub?.name || '',
+      unit: u?.name || '',
+      lesson: lesson,
+      duration: +f.duration || 45,
+      date: f.date || today(),
+      period: f.period || '1',
+      section: f.section || 'أ',
+      level: f.level || 'متفاوت',
+      strategies: f.strategies.slice(),
+      notes: f.notes || '',
+      teacher: Store.settings.teacher,
+      school: Store.settings.school
+    };
+  }
+
+  async function runGeneration() {
+    const params = collectWizard();
+    if (!params.lesson) { toast('أدخل عنوان الدرس', 'bad'); return; }
+
+    progressModal(['توليد المحتوى بالذكاء الاصطناعي', 'المراجعة التربوية الذاتية', 'التصحيح والتحسين', 'حساب درجة الجودة (بلوم/الزمن/التوافق)']);
+    markStep(0, 'doing');
+
+    let data;
+    try {
+      data = await AIAdapter.generate(params);
+    } catch (e) {
+      data = await MockAIEngine.generate(params);
+      toast('تعذّر الوصول للخادم — استُخدم المحرك التجريبي', 'warn');
+    }
+    markStep(0, 'done');
+    markStep(1, 'doing');
+    await sleep(450);
+    markStep(1, 'done');
+    markStep(2, 'doing');
+    await sleep(450);
+    markStep(2, 'done');
+    markStep(3, 'doing');
+    data.quality = QualityEngine.evaluate(data);
+    await sleep(400);
+    markStep(3, 'done');
+    await sleep(250);
+    closeModal();
+
+    const plan = {
+      id: uid(),
+      title: data.meta.lesson || 'تحضير جديد',
+      status: 'مسودة',
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      data: data
+    };
+    Store.plans.unshift(plan);
+    W = { step: 1, form: defaultWiz() };
+    location.hash = '#/edit/' + plan.id;
+    toast('✅ تم إنشاء التحضير — راجعه وعدّله ثم اطبعه');
+  }
+
+  // ---------- تهيئة التطبيق ----------
+  async function init() {
+    // إنشاء عينة أولية
+    if (Store.plans.length === 0) {
+      const sample = await MockAIEngine.generate({
+        curriculum: 'المنهج اليمني',
+        grade: 'الصف السادس الابتدائي',
+        band: 'mid',
+        subject: 'الرياضيات',
+        unit: 'الأعداد الكسرية',
+        lesson: 'جمع الكسور المتشابهة',
+        duration: 45,
+        level: 'متفاوت',
+        strategies: ['التعلم التعاوني', 'حل المشكلات'],
+        section: 'أ',
+        period: '2',
+        date: today(),
+        teacher: Store.settings.teacher || 'أحمد اليمني',
+        school: Store.settings.school || 'مدرسة النهضة الأساسية'
+      });
+      sample.quality = QualityEngine.evaluate(sample);
+      Store.plans.push({
+        id: uid(),
+        title: sample.meta.lesson,
+        status: 'مكتمل',
+        createdAt: Date.now() - 86400000,
+        updatedAt: Date.now() - 3600000,
+        data: sample
+      });
+    }
+
+    window.addEventListener('hashchange', route);
+    route();
+  }
+
+  init();
+</script>
+</body>
+</html>
